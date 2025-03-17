@@ -1,11 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from azure.storage.blob import BlobServiceClient
+import io
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'your_secret_key'  # เปลี่ยนคีย์ให้ปลอดภัย
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+# ตั้งค่าการเชื่อมต่อกับ Azure Blob Storage
+blob_service_client = BlobServiceClient(account_url="https://edocsalary.blob.core.windows.net", credential="<your_azure_storage_account_key>")
+container_client = blob_service_client.get_container_client("<my_container>")
+
+# ดาวน์โหลดไฟล์ Excel จาก Blob Storage
+blob_client = container_client.get_blob_client("data.xlsx")
+with open("data.xlsx", "wb") as download_file:
+    download_file.write(blob_client.download_blob().readall())
 
 # โหลดข้อมูลจาก Excel
 data = pd.read_excel('data.xlsx')
@@ -52,13 +63,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    from azure.storage.blob import BlobServiceClient
-
-# ตั้งค่าการเชื่อมต่อกับ Azure Blob Storage
-blob_service_client = BlobServiceClient(account_url="https://edocsalary.blob.core.windows.net/my-container/data.xlsx", credential="<NWxYvz6V119kaMp6TJ4VvMQFFuQaSf/SWSQ98To5TZTNZGs7EOud2jQ7nz9ZHS/YAdsW7iCNC7HJ+AStXc2o5A==>")
-container_client = blob_service_client.get_container_client("<my_container>")
-
-# ดาวน์โหลดไฟล์ Excel จาก Blob Storage
-blob_client = container_client.get_blob_client("data.xlsx")
-with open("data.xlsx", "wb") as download_file:
-    download_file.write(blob_client.download_blob().readall())
