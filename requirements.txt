@@ -1,5 +1,5 @@
-Flask==2.0.1
-gunicorn==20.1.0
-pandas==1.3.0
-flask-login==0.5.0
-azure-storage-blob==12.8.0  # เพิ่ม package สำหรับเชื่อมต่อ Azure Blob Storage
+Flask
+pandas
+flask-login
+azure-storage-blob
+gunicorn
