@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - E-Slip</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.fullname }}</h1>
+    <p>Your Salary: {{ user.salary }}</p>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
