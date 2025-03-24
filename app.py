@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pandas as pd
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
@@ -11,7 +11,7 @@ login_manager.login_view = "login"
 
 # โหลดข้อมูลพนักงานจากไฟล์ Excel
 def load_users():
-    df = pd.read_excel("database.xlsx")
+    df = pd.read_excel("database_2.xlsx")
     users = {row["username"]: row for _, row in df.iterrows()}
     return users
 
@@ -41,14 +41,16 @@ def login():
             user = User(username)
             login_user(user)
             return redirect(url_for("dashboard"))
-        
+        else:
+            flash("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!", "danger")  # แสดงข้อความเตือน
+
     return render_template("login.html")
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
     user_data = users[current_user.id]
-    return render_template("dashboard.html", user=user_data)
+    return render_template("dash2.html", user=user_data)
 
 @app.route("/logout")
 @login_required

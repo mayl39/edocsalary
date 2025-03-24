@@ -1,0 +1,159 @@
+/* styles.css */
+
+/* ใช้ฟอนต์ Roboto จาก Google Fonts */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #2c3e50;
+    padding: 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header img {
+    max-width: 100px;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.header .left,
+.header .center,
+.header .right {
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+}
+
+.header .center {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header .right {
+    text-align: right;
+}
+
+.print-button {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.print-button button {
+    background-color: #3498db;
+    /* สีฟ้า */
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.print-button button:hover {
+    background-color: #2980b9;
+    /* สีฟ้าเข้ม */
+    transform: scale(1.05);
+}
+
+.print-button button:active {
+    background-color: #1c598d;
+    /* สีฟ้าลึก */
+    transform: scale(0.95);
+}
+
+/* ตารางรายละเอียด */
+table.details, table.details th, table.details td {
+    border: 1px solid #000; /* หรือสีที่คุณต้องการ */
+    border-collapse: collapse; /* ทำให้เส้นขอบไม่ซ้อนกัน */
+}
+
+table.details th {
+    padding: 12px;
+    text-align: left;
+    background-color: #f8f8f8; /* สีพื้นหลังให้หัวตารางดูโดดเด่น */
+}
+
+/* ตารางเงินเดือน */
+table.salary {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table.salary th {
+    padding: 12px;
+    border-bottom: 1px solid #f2f2f2;
+    text-align: left;
+}
+
+table.salary td {
+    padding: 12px;
+    border-bottom: none solid #f2f2f2;
+    text-align: left;
+
+}
+
+
+table.salary th {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+}
+
+table.salary tr:last-child td {
+    border-bottom: none;
+}
+
+table.salary td {
+    color: #333;
+}
+
+/* สไตล์สำหรับการพิมพ์ */
+@media print {
+    .print-button {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        background-color: white;
+        color: black;
+    }
+
+    table.details,
+    table.salary {
+        width: 100%;
+        border: 1px solid black;
+    }
+
+    table.details td,
+    table.salary td,
+    table.salary th {
+        border: 1px solid black;
+        padding: 8px;
+    }
+
+    table.salary th {
+        background-color: #2980b9;
+        color: white;
+    }
+
+    .print-button button {
+        display: none;
+    }
+}

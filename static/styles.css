@@ -1,0 +1,116 @@
+/* styles.css */
+
+/* ตารางเงินเดือน */
+table.salary {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    /* เส้นขอบเฉพาะด้านนอกของตาราง */
+}
+
+th {
+    padding: 8px;
+    text-align: center;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header img {
+    max-width: 100px;
+}
+
+.details {
+    margin-bottom: 20px;
+}
+
+.details p {
+    line-height: 2;
+    /* เพิ่มระยะห่างระหว่างบรรทัด */
+}
+
+.details {
+    width: 100%;
+    border-collapse: collapse;
+    /* ทำให้ตารางเรียบ */
+}
+
+.details td {
+    padding: 8px;
+    border: none;
+    /* ไม่มีเส้นขอบ */
+}
+
+/* ปุ่ม Print */
+.print-button {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.print-button button {
+    background-color: #4CAF50; /* สีพื้นหลัง */
+    color: white; /* สีตัวอักษร */
+    font-size: 16px; /* ขนาดตัวอักษร */
+    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
+    border: none; /* ลบเส้นขอบ */
+    border-radius: 5px; /* มุมโค้ง */
+    cursor: pointer; /* เปลี่ยนรูปแบบ cursor */
+    transition: background-color 0.3s, transform 0.3s; /* เอฟเฟ็กต์เมื่อกด */
+}
+
+.print-button button:hover {
+    background-color: #45a049; /* สีพื้นหลังเมื่อ hover */
+    transform: scale(1.05); /* ขยายขนาดปุ่มเล็กน้อย */
+}
+
+.print-button button:active {
+    background-color: #388e3c; /* สีพื้นหลังเมื่อคลิก */
+    transform: scale(0.95); /* ลดขนาดปุ่มเมื่อกด */
+}
+
+/* Header layout */
+.header table {
+    width: 100%;
+    border-collapse: collapse;
+    /* ทำให้เส้นขอบรวมกัน */
+}
+
+.header td {
+    padding: 8px;
+    text-align: center;
+}
+
+.header .left {
+    text-align: left;
+    /* โลโก้ให้ชิดซ้าย */
+}
+
+.header .center {
+    text-align: center;
+    /* ข้อความตรงกลาง */
+    font-weight: bold;
+}
+
+.header .right {
+    text-align: right;
+    /* ข้อความขวา */
+}
+
+/* ซ่อนปุ่ม Print เมื่อพิมพ์ */
+@media print {
+    .print-button {
+        display: none;
+    }
+}

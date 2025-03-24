@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+    <!-- ลิงก์ไปยัง Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css"> <!-- เรียกใช้ไฟล์ CSS -->
+</head>
+
+<body>
+    <div class="header">
+        <table>
+            <tr>
+                <td class="left"><img src="static/img/A_Logo_Red_R.png" alt="Logo"></td>
+                <td class="center">Hitachi Astemo Korat Brake system Ltd.</td>
+                <td class="right">ใบแจ้งเงินเดือน (PAY SLIP)</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ปุ่ม Print -->
+    <div class="print-button">
+        <button onclick="window.print()">พิมพ์ E-Slip</button>
+    </div>
+
+    <table class="details">
+        <tr>
+            <td>รหัส: {{ user.emp_id }}</td>
+            <td>ชื่อ-นามสกุล: {{ user.fname }} {{ user.lname }}</td>
+            <td>ประจำงวดวันที่: {{ user.date.strftime('%d/%m/%Y') }}</td>
+        </tr>
+        <tr>
+            <td>ตำแหน่ง: {{ user.position }}</td>
+            <td>หน่วยงาน: {{ user.dept }}</td>
+            <td>ประเภทพนักงาน: {{ user.emp_type }}</td>
+        </tr>
+        <tr>
+            <td>เลขประจำตัวผู้เสียภาษี: {{ user.tax_id }}</td>
+            <td>เลขประกันสังคม: {{ user.ss_id }}</td>
+        </tr>
+    </table>
+
+    <form>
+        <table class="salary">
+            <thead>
+                <tr>
+                    <th colspan="2">รายได้</th>
+                    <th colspan="2">รายการหัก</th>
+                    <th colspan="2">ยอดสะสมรายปี</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><!--row1-->
+                    <td>เงินเดือนรวม: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>หยุดงาน: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>OT1:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row2-->
+                    <td>ค่าครองชีพ:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>หักสินเชื่อธอส./ออมสิน:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>OT1.5:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row3-->
+                    <td>ค่าตำแหน่ง+การจัดการ: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>หุ้นหสกรณ์:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>OT2:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row4-->
+                    <td>OT.1.5: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>กู้สหรกรณ์:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>bonus:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row5-->
+                    <td>OT.2.0: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>รถจักรยานต์ งวดx/เครื่องยนต์ งวดx:</td> <!--ต้องใส่ loop-->
+                    <td>{{ user.salary_sum }}</td>
+                    <td>โบนัสสะสม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row6-->
+                    <td>OT.3.0: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>เบี้ยประกัน:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>รายได้สะสม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row7-->
+                    <td>สวัสดิการค่าบ้าน/ค่าเดินทาง/บุตร: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>ค่าน้ำค่าไฟ:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>ภาษีสะสม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row8-->
+                    <td>เบี้ยขยัน: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>ฌาปนกิจ:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>ประกันสังคมสะสม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row9-->
+                    <td>ค่ากะ: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>สวัสดิการค่าข้าว/หอพัก:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>กองทุนสำรองสะสม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row10-->
+                    <td>ปป.ผลต่างประกันสังคม/ความสี่ยง: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>คูปอง:</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ user.salary_sum }}</td>
+                </tr>
+                <tr><!--row11-->
+                    <td>สวัสดิการค่าข้าว/หอพัก: </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>รายการหักปรังปรุง/กยศ.:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr><!--row12-->
+                    <td>เบี้ยเลี้ยง/สุขภาพ(ค่ารักษา): </td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>ภาษี:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr><!--row13-->
+                    <td></td>
+                    <td></td>
+                    <td>ประกันสังคม</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+                <tr><!--row14-->
+                    <td></td>
+                    <td></td>
+                    <td>กองทุนสำรอง:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr><!--row14-->
+                    <td></td>
+                    <td></td>
+                    <td>รายการหักรวม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr><!--row14-->
+                    <td>รายได้รวม</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td>รายการหักรวม:</td>
+                    <td>{{ user.salary_sum }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </form>
+</body>
+
+</html>
