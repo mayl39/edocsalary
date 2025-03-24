@@ -1,130 +1,77 @@
-/* styles.css */
+/* ตั้งค่ากระดาษ A4 landscape */
+@page {
+    size: A4 landscape; /* กระดาษขนาด A4 แนวนอน */
+    margin: 0.5cm; /* ขอบกระดาษ 0.5cm */
+}
 
-/* ใช้ฟอนต์ Roboto จาก Google Fonts */
+/* ฟอนต์เล็กลง */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    font-size: 12px; /* ปรับขนาดฟอนต์ให้เล็กลง */
 }
 
+/* ตั้งค่า header */
 .header {
     background-color: #2c3e50;
-    padding: 20px;
+    padding: 10px;
     color: white;
     text-align: center;
-    margin-bottom: 20px;
-}
-
-.header img {
-    max-width: 100px;
-    margin-right: 20px;
-    vertical-align: middle;
-}
-
-.header .left,
-.header .center,
-.header .right {
-    display: inline-block;
-    vertical-align: middle;
-    color: white;
+    margin-bottom: 15px;
+    font-size: 14px; /* ปรับขนาดฟอนต์ใน header */
 }
 
 .header .center {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.header .right {
-    text-align: right;
-}
-
-.print-button {
-    text-align: center;
-    margin: 20px 0;
+    font-size: 16px; /* ปรับขนาดฟอนต์ในข้อความกลาง */
 }
 
 .print-button button {
-    background-color: #3498db;
-    /* สีฟ้า */
-    color: white;
-    font-size: 16px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.print-button button:hover {
-    background-color: #2980b9;
-    /* สีฟ้าเข้ม */
-    transform: scale(1.05);
-}
-
-.print-button button:active {
-    background-color: #1c598d;
-    /* สีฟ้าลึก */
-    transform: scale(0.95);
+    font-size: 12px; /* ปรับขนาดฟอนต์ในปุ่มพิมพ์ */
+    padding: 8px 15px;
 }
 
 /* ตารางรายละเอียด */
 table.details, table.details th, table.details td {
-    border: 1px solid #000; /* หรือสีที่คุณต้องการ */
-    border-collapse: collapse; /* ทำให้เส้นขอบไม่ซ้อนกัน */
+    border: 1px solid #000;
+    border-collapse: collapse;
+    font-size: 12px; /* ปรับขนาดฟอนต์ในตารางรายละเอียด */
 }
 
 table.details th {
-    padding: 12px;
+    padding: 8px;
     text-align: left;
-    background-color: #f8f8f8; /* สีพื้นหลังให้หัวตารางดูโดดเด่น */
+    background-color: #f8f8f8;
 }
 
 /* ตารางเงินเดือน */
 table.salary {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     background-color: white;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 12px; /* ปรับขนาดฟอนต์ในตารางเงินเดือน */
 }
 
 table.salary th {
-    padding: 12px;
+    padding: 8px;
     border-bottom: 1px solid #f2f2f2;
     text-align: left;
 }
 
 table.salary td {
-    padding: 12px;
+    padding: 8px;
     border-bottom: none solid #f2f2f2;
     text-align: left;
-
 }
 
-
-table.salary th {
-    background-color: #2980b9;
-    color: white;
-    font-weight: bold;
-}
-
-table.salary tr:last-child td {
-    border-bottom: none;
-}
-
-table.salary td {
-    color: #333;
-}
-
-/* สไตล์สำหรับการพิมพ์ */
+/* ปรับให้พิมพ์ออกมาใน 1 หน้า */
 @media print {
-    .print-button {
-        display: none;
-    }
-
     body {
+        font-size: 10px; /* ขนาดฟอนต์เล็กลงเพื่อให้ข้อมูลอยู่ในหน้ากระดาษ */
         background-color: white;
         margin: 0;
         padding: 0;
@@ -133,19 +80,18 @@ table.salary td {
     .header {
         background-color: white;
         color: black;
+        font-size: 12px;
     }
 
-    table.details,
-    table.salary {
+    table.details, table.salary {
         width: 100%;
         border: 1px solid black;
+        font-size: 10px; /* ปรับขนาดฟอนต์ให้เล็กลงสำหรับการพิมพ์ */
     }
 
-    table.details td,
-    table.salary td,
-    table.salary th {
+    table.details td, table.salary td, table.salary th {
         border: 1px solid black;
-        padding: 8px;
+        padding: 6px; /* ลดขนาด padding เพื่อให้พอดีกับหน้ากระดาษ */
     }
 
     table.salary th {
@@ -153,7 +99,7 @@ table.salary td {
         color: white;
     }
 
-    .print-button button {
-        display: none;
+    .print-button {
+        display: none; /* ซ่อนปุ่มพิมพ์เมื่อพิมพ์ */
     }
 }

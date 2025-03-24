@@ -29,7 +29,7 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html") #หน้าแรกที่จะให้แสดงเมื่อเข้า Link เปลี่ยนจาก Home เป้น Login เลยเพราะยังไม่มี menu อื่น
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

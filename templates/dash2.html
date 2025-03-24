@@ -10,6 +10,12 @@
 </head>
 
 <body>
+    <!-- ปุ่ม Print -->
+    <div class="print-button">
+        <button onclick="window.print()">พิมพ์ E-Slip</button>
+        <button onclick="logout()">🚪 ออกจากระบบ</button>
+    </div>
+
     <div class="header">
         <table>
             <tr>
@@ -20,10 +26,7 @@
         </table>
     </div>
 
-    <!-- ปุ่ม Print -->
-    <div class="print-button">
-        <button onclick="window.print()">พิมพ์ E-Slip</button>
-    </div>
+    
 
     <table class="details">
         <tr>
@@ -165,7 +168,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr><!--row14-->
+                <tr><!--row15-->
                     <td></td>
                     <td></td>
                     <td>รายการหักรวม:</td>
@@ -173,7 +176,7 @@
                     <td></td>
                     <td></td>
                 </tr>
-                <tr><!--row14-->
+                <tr><!--row16-->
                     <td>รายได้รวม</td>
                     <td>{{ user.salary_sum }}</td>
                     <td>รายการหักรวม:</td>
@@ -185,6 +188,11 @@
             </tbody>
         </table>
     </form>
+    <script>
+        function logout() {
+            window.location.href = "/logout";
+        }
+    </script>
 </body>
 
 </html>
