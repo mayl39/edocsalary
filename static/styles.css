@@ -1,116 +1,290 @@
 /* styles.css */
 
-/* ตารางเงินเดือน */
-table.salary {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid black;
-    /* เส้นขอบเฉพาะด้านนอกของตาราง */
+/* ใช้ฟอนต์ Roboto จาก Google Fonts */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-th {
-    padding: 8px;
-    text-align: center;
-}
-
-td {
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-/* Header */
 .header {
+    background-color: #ffffff;
+    padding: 20px;
+    color: rgb(0, 0, 0);
     text-align: center;
     margin-bottom: 20px;
 }
 
 .header img {
-    max-width: 100px;
+    width: 100px; /* ขนาดกว้างที่แน่นอน */
+    height: 28px; /* ขนาดสูงที่แน่นอน */
+    object-fit: contain; /* ให้ภาพรักษาสัดส่วนของภาพ */
+    margin-right: 20px;
+    vertical-align: middle;
 }
 
-.details {
-    margin-bottom: 20px;
-}
-
-.details p {
-    line-height: 2;
-    /* เพิ่มระยะห่างระหว่างบรรทัด */
-}
-
-.details {
+/* ตาราง Header */
+table.header {
     width: 100%;
-    border-collapse: collapse;
-    /* ทำให้ตารางเรียบ */
+    border-collapse: separate; /* ทำให้ขอบเซลล์ไม่เชื่อมกัน */
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #000; /* เส้นขอบภายนอก */
 }
 
-.details td {
-    padding: 8px;
-    border: none;
-    /* ไม่มีเส้นขอบ */
+table.header td {
+    padding: 12px;
+    text-align: left;
+    border: none; /* ไม่มีเส้นขอบภายใน */
 }
 
-/* ปุ่ม Print */
+table.header th {
+    padding: 12px;
+    text-align: left;
+    border: none; /* ไม่มีเส้นขอบภายใน */
+}
+
 .print-button {
-    margin: 20px 0;
     text-align: center;
+    margin: 20px 0;
 }
 
 .print-button button {
-    background-color: #4CAF50; /* สีพื้นหลัง */
-    color: white; /* สีตัวอักษร */
-    font-size: 16px; /* ขนาดตัวอักษร */
-    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
-    border: none; /* ลบเส้นขอบ */
-    border-radius: 5px; /* มุมโค้ง */
-    cursor: pointer; /* เปลี่ยนรูปแบบ cursor */
-    transition: background-color 0.3s, transform 0.3s; /* เอฟเฟ็กต์เมื่อกด */
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.print-button button:first-child {
+    background-color: #4CAF50; /* Green for พิมพ์ E-Slip */
+    color: white;
+}
+
+.print-button button:last-child {
+    background-color: #FFCCCC; /* Light Red for ออกจากระบบ */
+    color: #D32F2F; /* Dark red text */
 }
 
 .print-button button:hover {
-    background-color: #45a049; /* สีพื้นหลังเมื่อ hover */
-    transform: scale(1.05); /* ขยายขนาดปุ่มเล็กน้อย */
+    transform: scale(1.05);
 }
 
 .print-button button:active {
-    background-color: #388e3c; /* สีพื้นหลังเมื่อคลิก */
-    transform: scale(0.95); /* ลดขนาดปุ่มเมื่อกด */
+    transform: scale(0.95);
 }
 
-/* Header layout */
-.header table {
+/* ตารางรายละเอียด */
+table.details {
     width: 100%;
-    border-collapse: collapse;
-    /* ทำให้เส้นขอบรวมกัน */
+    border-collapse: separate; /* ทำให้ขอบเซลล์ไม่เชื่อมกัน */
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #000; /* เส้นขอบภายนอก */
 }
 
-.header td {
-    padding: 8px;
-    text-align: center;
-}
-
-.header .left {
+table.details td, table.details th {
+    padding: 12px;
     text-align: left;
-    /* โลโก้ให้ชิดซ้าย */
+    border: none; /* ไม่มีเส้นขอบภายใน */
+}
+table.details img {
+    width: 100px; /* ขนาดกว้างที่แน่นอน */
+    height: 28px; /* ขนาดสูงที่แน่นอน */
+    object-fit: contain; /* ให้ภาพรักษาสัดส่วนของภาพ */
+    margin-right: 20px;
+    vertical-align: middle;
 }
 
-.header .center {
-    text-align: center;
-    /* ข้อความตรงกลาง */
+/* ตารางเงินเดือน */
+table.salary {
+    width: 100%;
+    border-collapse: separate; /* ทำให้ขอบเซลล์ไม่เชื่อมกัน */
+    margin-bottom: 40px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #000; /* เส้นขอบภายนอก */
+}
+
+table.salary th, table.salary td {
+    padding: 12px;
+    text-align: left;
+    border: none; /* ไม่มีเส้นขอบภายใน */
+}
+
+table.salary td {
+    padding: 12px;
+    border-bottom: none solid #f2f2f2;
+    text-align: left;
+}
+
+table.salary th {
+    background-color: #2980b9;
+    color: white;
     font-weight: bold;
 }
 
-.header .right {
-    text-align: right;
-    /* ข้อความขวา */
+table.salary tr:last-child td {
+    border-bottom: none;
 }
 
-/* ซ่อนปุ่ม Print เมื่อพิมพ์ */
+table.salary td {
+    color: #333;
+}
+
+/* สำหรับการพิมพ์ */
 @media print {
+    body {
+        font-size: 10px; /* ขนาดฟอนต์เล็กลงเพื่อให้ข้อมูลอยู่ในหน้ากระดาษ */
+        background-color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        background-color: white;
+        color: black;
+        font-size: 12px;
+    }
+
+    table.details, table.salary {
+        width: 100%;
+        border: none; /* ลบเส้นขอบตาราง */
+        font-size: 10px; /* ปรับขนาดฟอนต์ให้เล็กลงสำหรับการพิมพ์ */
+        border-collapse: separate; /* ทำให้ขอบเซลล์ไม่เชื่อมกัน */
+    }
+
+    /* เพิ่มเส้นขอบภายนอกสำหรับการพิมพ์ */
+    table.details, table.salary, table.header {
+        border: 1px solid #000; /* เส้นขอบภายนอก */
+    }
+
+    /* ลบเส้นขอบภายใน */
+    table.details td, table.details th, table.salary td, table.salary th {
+        border: none; /* ลบเส้นขอบภายใน */
+        padding: 6px; /* ลดขนาด padding เพื่อให้พอดีกับหน้ากระดาษ */
+    }
+
+    /* เพิ่มสีพื้นหลังที่แถวหัวข้อของตาราง */
+    table.salary th, table.details th {
+        background-color: #2980b9;
+        color: white;
+    }
+
+    form {
+        display: none;
+    }
+
     .print-button {
         display: none;
     }
+
+    /* แยกหน้าเมื่อพิมพ์หลายแผ่น */
+    .e-slip {
+        page-break-after: always; /* Forces a new page after each payslip */
+    }
+}
+
+/* สำหรับมือถือ */
+@media (max-width: 600px) {
+    .header .left,
+    .header .center,
+    .header .right {
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .header img {
+        max-width: 80px;
+        margin: 10px 0;
+    }
+
+    .print-button {
+        font-size: 14px;
+    }
+
+    table.details td, table.salary td {
+        padding: 8px;
+    }
+
+    table.salary th, table.details th {
+        font-size: 14px;
+    }
+
+    .salary td, .salary th {
+        text-align: center;
+    }
+}
+
+/* สำหรับแท็บเล็ต */
+@media (max-width: 768px) {
+    .header .left,
+    .header .center,
+    .header .right {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    table.details td, table.salary td {
+        padding: 10px;
+    }
+
+    .salary td {
+        text-align: center;
+    }
+}
+
+/* จัดระเบียบข้อความในตาราง */
+table.salary td, table.details td {
+    text-align: center; /* หรือ left, right ตามที่ต้องการ */
+}
+
+/* เอฟเฟกต์การเลื่อน (hover) ของแถวในตาราง */
+table.salary tr:hover, table.details tr:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+/* ปรับสไตล์ของฟอร์ม */
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+form label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+form select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    width: 150px;
+}
+
+form button {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #2980b9;
 }

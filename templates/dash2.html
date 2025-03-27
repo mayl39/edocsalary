@@ -4,40 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
-    <!-- ลิงก์ไปยัง Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/styles.css"> <!-- เรียกใช้ไฟล์ CSS -->
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+
+            .slip-container {
+                width: 100%;
+                padding: 20px;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            td,
+            th {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- ปุ่ม Print -->
-    <div class="print-button">
-        <button onclick="window.print()">พิมพ์ E-Slip</button>
-        <button onclick="logout()">🚪 ออกจากระบบ</button>
-    </div>
 
-    <div class="header">
-        <table>
-            <tr>
-                <td class="left"><img src="static/img/A_Logo_Red_R.png" alt="Logo"></td>
-                <td class="center">Hitachi Astemo Korat Brake system Ltd.</td>
-                <td class="right">ใบแจ้งเงินเดือน (PAY SLIP)</td>
-            </tr>
-        </table>
-    </div>
+    <form method="POST" action="{{ url_for('dashboard') }}">
+        <label for="month-select">เลือกเดือน:</label>
+        <select id="month-select" name="month">
+            {% for month in range(1, 13) %}
+            <option value="{{ month }}" {% if month==selected_month %}selected{% endif %}>
+                {{ month }}/{{ user.date.strftime('%Y') }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit">โหลดข้อมูล</button>
+        <div class="print-button">
+            <button onclick="window.print()"> พิมพ์ Slip</button>
+            <a href="{{ url_for('logout') }}">
+                <button type="button">ออกจากระบบ</button>
+            </a>
+        </div>
+    </form>
+    <!-- ฟอร์ม Logout -->
 
-    
 
+    {% if e_slips %}
+    {% for row in e_slips %}
     <table class="details">
+        <tr>
+            <td><img src="static/img/A_Logo_Red_R.png" alt="Logo"></td>
+            <td>Hitachi Astemo Korat Brake System Ltd.</td>
+            <td>ใบแจ้งเงินเดือน (PAY SLIP)</td>
+        </tr>
         <tr>
             <td>รหัส: {{ user.emp_id }}</td>
             <td>ชื่อ-นามสกุล: {{ user.fname }} {{ user.lname }}</td>
-            <td>ประจำงวดวันที่: {{ user.date.strftime('%d/%m/%Y') }}</td>
+            <td>ประเภทพนักงาน: {{ user.emp_type }}</td>
         </tr>
         <tr>
             <td>ตำแหน่ง: {{ user.position }}</td>
             <td>หน่วยงาน: {{ user.dept }}</td>
-            <td>ประเภทพนักงาน: {{ user.emp_type }}</td>
+            <td>เดือน: {{ selected_month }}/{{ user.date.strftime('%Y') }}</td>
         </tr>
         <tr>
             <td>เลขประจำตัวผู้เสียภาษี: {{ user.tax_id }}</td>
@@ -45,154 +80,152 @@
         </tr>
     </table>
 
-    <form>
-        <table class="salary">
-            <thead>
-                <tr>
-                    <th colspan="2">รายได้</th>
-                    <th colspan="2">รายการหัก</th>
-                    <th colspan="2">ยอดสะสมรายปี</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><!--row1-->
-                    <td>เงินเดือนรวม: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>หยุดงาน: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>OT1:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row2-->
-                    <td>ค่าครองชีพ:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>หักสินเชื่อธอส./ออมสิน:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>OT1.5:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row3-->
-                    <td>ค่าตำแหน่ง+การจัดการ: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>หุ้นหสกรณ์:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>OT2:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row4-->
-                    <td>OT.1.5: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>กู้สหรกรณ์:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>bonus:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row5-->
-                    <td>OT.2.0: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>รถจักรยานต์ งวดx/เครื่องยนต์ งวดx:</td> <!--ต้องใส่ loop-->
-                    <td>{{ user.salary_sum }}</td>
-                    <td>โบนัสสะสม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row6-->
-                    <td>OT.3.0: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>เบี้ยประกัน:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>รายได้สะสม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row7-->
-                    <td>สวัสดิการค่าบ้าน/ค่าเดินทาง/บุตร: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>ค่าน้ำค่าไฟ:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>ภาษีสะสม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row8-->
-                    <td>เบี้ยขยัน: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>ฌาปนกิจ:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>ประกันสังคมสะสม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row9-->
-                    <td>ค่ากะ: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>สวัสดิการค่าข้าว/หอพัก:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>กองทุนสำรองสะสม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row10-->
-                    <td>ปป.ผลต่างประกันสังคม/ความสี่ยง: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>คูปอง:</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{ user.salary_sum }}</td>
-                </tr>
-                <tr><!--row11-->
-                    <td>สวัสดิการค่าข้าว/หอพัก: </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>รายการหักปรังปรุง/กยศ.:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr><!--row12-->
-                    <td>เบี้ยเลี้ยง/สุขภาพ(ค่ารักษา): </td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>ภาษี:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr><!--row13-->
-                    <td></td>
-                    <td></td>
-                    <td>ประกันสังคม</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
+    <table class="salary">
+        <thead>
+            <tr>
+                <th colspan="2">รายได้</th>
+                <th colspan="2">รายการหัก</th>
+                <th colspan="2">ยอดสะสมรายปี</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>เงินเดือนรวม: </td>
+                <td>{{ row["salary_sum"] }}</td>
+                <td>หยุดงาน: </td>
+                <td>{{ row["deductions_1"] }}</td>
+                <td>OT1:</td>
+                <td>{{ row["ot1"] }}</td>
+            </tr>
+            <tr>
+                <td>ค่าครองชีพ:</td>
+                <td>{{ row["cost_living"] }}</td>
+                <td>หักสินเชื่อธอส./ออมสิน:</td>
+                <td>{{ row["deductions_2"] }}</td>
+                <td>OT1.5:</td>
+                <td>{{ row["ot1_5"] }}</td>
+            </tr>
+            <tr>
+                <td>ค่าตำแหน่ง+การจัดการ: </td>
+                <td>{{ row["position_allowance"] }}</td>
+                <td>หุ้นหสกรณ์:</td>
+                <td>{{ row["deductions_3"] }}</td>
+                <td>OT2:</td>
+                <td>{{ row["ot2"] }}</td>
+            </tr>
+            <tr>
+                <td>OT.1.5: </td>
+                <td>{{ row["ot1_5_yearly"] }}</td>
+                <td>กู้สหรกรณ์:</td>
+                <td>{{ row["deductions_4"] }}</td>
+                <td>bonus:</td>
+                <td>{{ row["bonus"] }}</td>
+            </tr>
+            <tr>
+                <td>OT.2.0: </td>
+                <td>{{ row["ot2"] }}</td>
+                <td>รถจักรยานต์ งวดx/เครื่องยนต์ งวดx:</td>
+                <td>{{ row["deductions_5"] }}</td>
+                <td>โบนัสสะสม:</td>
+                <td>{{ row["bonus_yearly"] }}</td>
+            </tr>
+            <tr>
+                <td>OT.3.0: </td>
+                <td>{{ row["ot3"] }}</td>
+                <td>เบี้ยประกัน:</td>
+                <td>{{ row["deductions_6"] }}</td>
+                <td>รายได้สะสม:</td>
+                <td>{{ row["income_yearly"] }}</td>
+            </tr>
+            <tr>
+                <td>สวัสดิการค่าบ้าน/ค่าเดินทาง/บุตร: </td>
+                <td>{{ row["welfare"] }}</td>
+                <td>ค่าน้ำค่าไฟ:</td>
+                <td>{{ row["deductions_7"] }}</td>
+                <td>ภาษีสะสม:</td>
+                <td>{{ row["tax_yearly"] }}</td>
+            </tr>
+            <tr>
+                <td>เบี้ยขยัน: </td>
+                <td>{{ row["diligence_allowance"] }}</td>
+                <td>ฌาปนกิจ:</td>
+                <td>{{ row["deductions_8"] }}</td>
+                <td>ประกันสังคมสะสม:</td>
+                <td>{{ row["ss_yearly"] }}</td>
+            </tr>
+            <tr>
+                <td>ค่ากะ: </td>
+                <td>{{ row["shift_allowance"] }}</td>
+                <td>สวัสดิการค่าข้าว/หอพัก:</td>
+                <td>{{ row["deductions_9"] }}</td>
+                <td>กองทุนสำรองสะสม:</td>
+                <td>{{ row["fund_yearly"] }}</td>
+            </tr>
+            <tr>
+                <td>ปป.ผลต่างประกันสังคม/ความเสี่ยง: </td>
+                <td>{{ row["risk_allowance"] }}</td>
+                <td>คูปอง:</td>
+                <td>{{ row["deductions_10"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>สวัสดิการค่าข้าว/หอพัก: </td>
+                <td>{{ row["deductions_9"] }}</td>
+                <td>รายการหักปรับปรุง/กยศ.:</td>
+                <td>{{ row["deductions_11"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>เบี้ยเลี้ยง/สุขภาพ(ค่ารักษา): </td>
+                <td>{{ row["medical_allowance"] }}</td>
+                <td>ภาษี:</td>
+                <td>{{ row["deductions_12"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>ประกันสังคม</td>
+                <td>{{ row["deductions_13"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>กองทุนสำรอง:</td>
+                <td>{{ row["deductions_14"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>รายการหักรวม:</td>
+                <td>{{ row["total_deductions"] }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>รายได้รวม</td>
+                <td>{{ row["total_income"] }}</td>
+                <td>รายการหักรวม:</td>
+                <td>{{ row["net_income"] }}</td>
+                <td>ประจำงวดวันที่: {{ row["date"].strftime('%d/%m/%Y') }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Insert a page break after each payslip -->
+    <div style="page-break-after: always;"></div>
 
-                </tr>
-                <tr><!--row14-->
-                    <td></td>
-                    <td></td>
-                    <td>กองทุนสำรอง:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr><!--row15-->
-                    <td></td>
-                    <td></td>
-                    <td>รายการหักรวม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr><!--row16-->
-                    <td>รายได้รวม</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td>รายการหักรวม:</td>
-                    <td>{{ user.salary_sum }}</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-            </tbody>
-        </table>
-    </form>
-    <script>
-        function logout() {
-            window.location.href = "/logout";
-        }
-    </script>
+    {% endfor %}
+    {% else %}
+    <p style="text-align: center;">ไม่มีข้อมูลในเดือนที่เลือก</p>
+    {% endif %}
+    </div>
 </body>
 
 </html>
